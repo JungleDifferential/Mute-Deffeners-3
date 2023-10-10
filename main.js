@@ -4,7 +4,7 @@ const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const { token, defaultChannelId, muteDeafenChannelId } = require('./config.json');
 const { config } = require('node:process');
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates] });
 client.mode = "off";
 
 if (process.argv.length > 1) {
@@ -40,6 +40,7 @@ const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'
 for (const file of eventFiles) {
 	const filePath = path.join(eventsPath, file);
 	const event = require(filePath);
+	console.log(`file: ${file}, filePath: ${filePath}`);
 	if (event.once) {
 		client.once(event.name, (...args) => event.execute(...args));
 	} else {

@@ -17,18 +17,18 @@ module.exports = {
                           (newState.selfDeaf && client.mode == "deafen"));
         if (channelId == client.muteDeafenChannelId && !violation) {
             if (client.previousMemberChannels.has(newState.member.id)) {
-                previousChannelId = client.previousMemberChannels.get(newState.member.id);
-                newState.setChannel(client.channels.cache.get(previousChannelId));
-                client.previousMemberChannels.remove()
+                const previousChannelId = client.previousMemberChannels.get(newState.member.id);
+                newState.setChannel(previousChannelId);
+                client.previousMemberChannels.remove(newState.member.id)
                 return;
             }
             newState.setChannel(client.defaultChannelId);
             return;
         }
         if (violation) {
-            client.previousMemberChannels.put(newState.member.id, channelId)
-            newState.setChannel(client.cache.channels.get(client.muteDeafenChannelId))
-            return
+            client.previousMemberChannels.set(newState.member.id, channelId);
+            newState.setChannel(client.muteDeafenChannelId);
+            return;
         }
     }
 };
