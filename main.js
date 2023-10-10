@@ -1,9 +1,23 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
-const { token } = require('./config.json');
+const { Client, Collection, GatewayIntentBits } = require('discord.js');
+const { token, defaultChannelId, muteDeafenChannelId } = require('./config.json');
+const { config } = require('node:process');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+client.mode = "off";
+
+if (process.argv.length > 1) {
+	const arg = process.argv.slice(2);
+	if (arg == 'mute' || arg == 'deafen') {
+		client.mode = arg
+	}
+}
+console.log(`Mode is set to ${client.mode}`);
+
+client.previousMemberChannels = new Map();
+client.defaultChannelId = defaultChannelId;
+client.muteDeafenChannelId = muteDeafenChannelId;
 
 client.commands = new Collection();
 
