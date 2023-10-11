@@ -19,7 +19,7 @@ module.exports = {
             if (client.previousMemberChannels.has(newState.member.id)) {
                 const previousChannelId = client.previousMemberChannels.get(newState.member.id);
                 newState.setChannel(previousChannelId);
-                client.previousMemberChannels.remove(newState.member.id)
+                client.previousMemberChannels.remove(newState.member.id);
                 return;
             }
             newState.setChannel(client.defaultChannelId);
