@@ -16,7 +16,7 @@ if (process.argv.length > 1) {
 }
 console.log(`Mode is set to ${client.mode}`);
 
-client.previousMemberChannels = new Map();
+client.prevMemberChannels = new Map();
 client.defaultChannelId = defaultChannelId;
 client.muteDeafenChannelId = muteDeafenChannelId;
 
