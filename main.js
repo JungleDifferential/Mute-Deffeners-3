@@ -3,6 +3,7 @@ const path = require('node:path');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const { token, defaultChannelId, muteDeafenChannelId } = require('./config.json');
 const { config } = require('node:process');
+const { generateDependencyReport } = require('@discordjs/voice');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates] });
 client.mode = "off";
@@ -18,6 +19,8 @@ console.log(`Mode is set to ${client.mode}`);
 client.previousMemberChannels = new Map();
 client.defaultChannelId = defaultChannelId;
 client.muteDeafenChannelId = muteDeafenChannelId;
+
+console.log(generateDependencyReport());
 
 client.commands = new Collection();
 
@@ -40,7 +43,6 @@ const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'
 for (const file of eventFiles) {
 	const filePath = path.join(eventsPath, file);
 	const event = require(filePath);
-	console.log(`file: ${file}, filePath: ${filePath}`);
 	if (event.once) {
 		client.once(event.name, (...args) => event.execute(...args));
 	} else {
