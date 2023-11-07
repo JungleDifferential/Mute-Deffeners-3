@@ -1,7 +1,9 @@
 {
   "dependencies": {
     "@discordjs/voice": "^0.16.0",
+    "discord-api-types": "^0.37.62",
     "discord.js": "^14.11.0",
-    "libsodium-wrappers": "^0.7.13"
+    "libsodium-wrappers": "^0.7.13",
+    "typescript": "^5.2.2"
   }
 }

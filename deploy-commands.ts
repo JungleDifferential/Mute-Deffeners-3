@@ -1,15 +1,16 @@
-const { REST, Routes } = require('discord.js');
+import { REST, Routes } from 'discord.js';
+import fs from 'node:fs';
+import path from 'node:path';
+
 const { clientId, guildId, token } = require('./config.json');
-const fs = require('node:fs');
-const path = require('node:path');
 
 const commands = [];
 
 // get all the command files in ./commands/ with .js ending
-const commandsPath = path.join(__dirname, 'commands');
-const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
-for (const file of commandFiles) {
-    const filePath = path.join(commandsPath, file);
+const deployCommandsPath = path.join(__dirname, 'commands');
+const deployCommandFiles = fs.readdirSync(deployCommandsPath).filter((file: string) => file.endsWith('.js'));
+for (const file of deployCommandFiles) {
+    const filePath = path.join(deployCommandsPath, file);
     const command = require(filePath);
     if ('data' in command && 'execute' in command) {
         commands.push(command.data.toJSON());
@@ -31,7 +32,7 @@ const rest = new REST().setToken(token);
 			{ body: commands },
 		);
 
-		console.log(`Successfully reloaded ${data.length} application slash commands.`);
+		console.log(`Successfully reloaded ${(data as any[]).length} application slash commands.`);
 	} catch (error) {
 		console.error(error);
 	}

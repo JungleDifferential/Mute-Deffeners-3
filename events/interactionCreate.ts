@@ -1,11 +1,12 @@
-const { Events } = require('discord.js');
+import { botData } from '../main';
+import { BaseInteraction, Events } from "discord.js";
 
 module.exports = {
     name: Events.InteractionCreate,
-    async execute(interaction) {
+    async execute(interaction: BaseInteraction) {
         if (!interaction.isChatInputCommand()) return;
 
-        const command = interaction.client.commands.get(interaction.commandName);
+        const command = botData.commands.get(interaction.commandName);
 
         if (!command) {
             console.error(`Command ${interaction.commandName} does not exist`);
