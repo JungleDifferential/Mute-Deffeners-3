@@ -5,5 +5,11 @@
     "discord.js": "^14.11.0",
     "libsodium-wrappers": "^0.7.13",
     "typescript": "^5.2.2"
+  },
+  "scripts": {
+    "clean": "node -e \"const fs = require('fs'); const path = require('path'); fs.readdirSync('./temp').forEach(file => { if (path.extname(file) === '.js') { fs.unlinkSync(path.join('./temp', file)); } });\"",
+    "build": "npm run clean && npx tsc",
+    "activate": "node ./temp/main.js",
+    "deploy-commands": "node ./temp/deploy-commands.js"
   }
 }

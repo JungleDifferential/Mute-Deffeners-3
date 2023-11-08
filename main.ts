@@ -4,7 +4,10 @@ import { generateDependencyReport } from '@discordjs/voice';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const { token, defaultChannelId, muteDeafenChannelId } = require('./config.json');
+/* this is needed because when the .ts files are transpiled into .js files
+   the rel path to config.json is different, since the .js files are moved elsehwere
+   this will generate an absolute path to config.json */
+const { token, defaultChannelId, muteDeafenChannelId } = require(path.resolve(__dirname, '../config.json'));
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates] });
 

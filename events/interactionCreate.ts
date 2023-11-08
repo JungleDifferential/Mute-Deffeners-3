@@ -8,8 +8,8 @@ module.exports = {
 
         const command = botData.commands.get(interaction.commandName);
 
-        if (!command) {
-            console.error(`Command ${interaction.commandName} does not exist`);
+        if (command === null) {
+            console.error(`ERROR: Command ${interaction.commandName} does not exist`);
             return;
         }
 
