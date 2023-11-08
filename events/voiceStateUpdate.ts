@@ -1,4 +1,4 @@
-import { botData } from "../main";
+import { botData } from "../initBotData";
 import { Events, VoiceState } from "discord.js";
 
 module.exports = {

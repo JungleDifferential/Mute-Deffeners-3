@@ -1,4 +1,4 @@
-import { botData } from '../main';
+import { botData } from '../initBotData';
 import { BaseInteraction, Events } from "discord.js";
 
 module.exports = {

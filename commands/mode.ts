@@ -1,5 +1,5 @@
+import { botData } from '../initBotData';
 import { ChatInputCommandInteraction, GuildMemberRoleManager, SlashCommandBuilder } from 'discord.js';
-import { botData } from '../main';
 
 module.exports = {
     data: new SlashCommandBuilder()

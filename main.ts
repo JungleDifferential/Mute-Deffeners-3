@@ -1,4 +1,4 @@
-import { BotData } from "./types/botData";
+import { botData } from "./initBotData";
 import { Client, Collection, GatewayIntentBits } from 'discord.js';
 import { generateDependencyReport } from '@discordjs/voice';
 import fs from 'node:fs';
@@ -7,18 +7,9 @@ import path from 'node:path';
 /* this is needed because when the .ts files are transpiled into .js files
    the rel path to config.json is different, since the .js files are moved elsehwere
    this will generate an absolute path to config.json */
-const { token, defaultChannelId, muteDeafenChannelId } = require(path.resolve(__dirname, '../config.json'));
+const { token } = require(path.resolve(__dirname, '../config.json'));
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates] });
-
-const botData: BotData = {
-	mode: "off",
-	commands: new Collection(),
-	prevMemberChannels: new Map(),
-	defaultChannelId: defaultChannelId,
-	muteDeafenChannelId: muteDeafenChannelId,
-};
-export { botData };
 
 if (process.argv.length > 1) {
 	const arg: string = process.argv.slice(2)[0];
